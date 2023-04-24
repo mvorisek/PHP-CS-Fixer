@@ -419,6 +419,15 @@ if ($foo) {
                 $nextToken = $tokens[$index + 1] ?? null;
 
                 if (
+                    null !== $nextToken
+                    && $nextToken->isComment()
+                    && substr($nextToken->getContent(), 0, 2) === '//'
+                    && Preg::match('/\R$/', $content)
+                ) {
+                    continue;
+                }
+
+                if (
                     $this->bracesFixerCompatibility
                     && null !== $nextToken
                     && $nextToken->isComment()
