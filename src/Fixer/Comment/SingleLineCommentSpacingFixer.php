@@ -80,6 +80,14 @@ final class SingleLineCommentSpacingFixer extends AbstractFixer
                     $newContent = rtrim(substr($content, 0, -2)).' '.substr($content, -2);
                     $newContent = $this->fixCommentLeadingSpace($newContent, '/*');
                 } else { // double slash comment
+                    $prevToken = $tokens[$index - 1] ?? null;
+                    if (
+                        $prevToken->isWhitespace()
+                        && Preg::match('/\R$/', $prevToken->getContent())
+                    ) {
+                        continue;
+                    }
+
                     $newContent = $this->fixCommentLeadingSpace($content, '//');
                 }
             } else { // hash comment
