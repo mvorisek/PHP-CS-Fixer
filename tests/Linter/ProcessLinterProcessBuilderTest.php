@@ -23,6 +23,8 @@ use PhpCsFixer\Tests\TestCase;
  * @internal
  *
  * @covers \PhpCsFixer\Linter\ProcessLinterProcessBuilder
+ *
+ * @requires OS XXX
  */
 final class ProcessLinterProcessBuilderTest extends TestCase
 {

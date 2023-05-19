@@ -250,7 +250,7 @@ final class ConfigurationResolver
     {
         if (null === $this->config) {
             foreach ($this->computeConfigFiles() as $configFile) {
-                if (!file_exists($configFile)) {
+                if (!@file_exists($configFile)) {
                     continue;
                 }
 
@@ -391,7 +391,7 @@ final class ConfigurationResolver
                             ? $path
                             : $cwd.\DIRECTORY_SEPARATOR.$path;
 
-                        if (!file_exists($absolutePath)) {
+                        if (!@file_exists($absolutePath)) {
                             throw new InvalidConfigurationException(\sprintf(
                                 'The path "%s" is not readable.',
                                 $path
