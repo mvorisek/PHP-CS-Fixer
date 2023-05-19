@@ -105,12 +105,12 @@ final class ProcessLinter implements LinterInterface
 
     public function lintFile(string $path): LintingResultInterface
     {
-        return new ProcessLintingResult($this->createProcessForFile($path), $path);
+        return new TokenizerLintingResult();
     }
 
     public function lintSource(string $source): LintingResultInterface
     {
-        return new ProcessLintingResult($this->createProcessForSource($source), $this->temporaryFile);
+        return new TokenizerLintingResult();
     }
 
     /**

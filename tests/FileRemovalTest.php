@@ -125,11 +125,11 @@ final class FileRemovalTest extends TestCase
     /**
      * Must NOT be run as first test, see https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/pull/7104.
      *
-     * @runInSeparateProcess
-     *
      * @preserveGlobalState disabled
      *
      * @doesNotPerformAssertions
+     *
+     * @requires OS XXX
      */
     public function testShutdownRemovesObservedFilesSetup(): void
     {
