@@ -24,6 +24,8 @@ use PhpCsFixer\Linter\ProcessLinter;
  *
  * @covers \PhpCsFixer\Linter\ProcessLinter
  * @covers \PhpCsFixer\Linter\ProcessLintingResult
+ *
+ * @requires OS XXX
  */
 final class ProcessLinterTest extends AbstractLinterTestCase
 {
