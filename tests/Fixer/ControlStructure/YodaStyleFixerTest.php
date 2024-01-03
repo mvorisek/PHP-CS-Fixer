@@ -873,6 +873,28 @@ switch ($a) {
             '<?php function test() {return yield from 1 === $a ? $c : $d;};',
             '<?php function test() {return yield from $a === 1 ? $c : $d;};',
         ];
+
+        yield 'heredoc and variable must work as string' => [
+            <<<'EOD'
+            <?php return <<<EOF
+                EOF === $v;
+            EOD,
+            <<<'EOD'
+            <?php return $v === <<<EOF
+                EOF;
+            EOD,
+        ];
+
+        yield 'string and constant' => [
+            '<?php return \'\' === PHP_SAPI;',
+        ];
+
+        yield 'heredoc and constant must work as string' => [
+            <<<'EOD'
+            <?php return <<<EOF
+                EOF === PHP_SAPI;
+            EOD,
+        ];
     }
 
     /**
