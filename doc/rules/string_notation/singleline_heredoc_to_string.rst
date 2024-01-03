@@ -20,7 +20,10 @@ Example #2
 .. code-block:: diff
 
    
-Source class
-------------
+References
+----------
 
-`PhpCsFixer\\Fixer\\StringNotation\\SinglelineHeredocToStringFixer <./../../../src/Fixer/StringNotation/SinglelineHeredocToStringFixer.php>`_
+- Fixer class: `PhpCsFixer\\Fixer\\StringNotation\\SinglelineHeredocToStringFixer <./../../../src/Fixer/StringNotation/SinglelineHeredocToStringFixer.php>`_
+- Test class: `PhpCsFixer\\Tests\\Fixer\\StringNotation\\SinglelineHeredocToStringFixerTest <./../../../tests/Fixer/StringNotation/SinglelineHeredocToStringFixerTest.php>`_
+
+The test class defines officially supported behaviour. Each test case is a part of our backward compatibility promise.
