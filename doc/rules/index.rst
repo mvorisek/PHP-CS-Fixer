@@ -876,6 +876,9 @@ String Notation
 - `single_quote <./string_notation/single_quote.rst>`_
 
   Convert double quotes to single quotes for simple strings.
+- `singleline_heredoc_to_string <./string_notation/singleline_heredoc_to_string.rst>`_
+
+  Convert singleline ``heredoc`` or ``nowdoc`` to string.
 - `string_length_to_empty <./string_notation/string_length_to_empty.rst>`_ *(risky)*
 
   String tests for empty must be done against ``''``, not with ``strlen``.
