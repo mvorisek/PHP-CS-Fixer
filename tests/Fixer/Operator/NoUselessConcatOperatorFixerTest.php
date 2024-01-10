@@ -150,15 +150,15 @@ final class NoUselessConcatOperatorFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'single quote concat single quote but with line break after' => [
-            <<<EOD
-                <?php \$fh = 'x'. // some comment
+            <<<'EOD'
+                <?php $fh = 'x'. // some comment
                 'y';
                 EOD,
         ];
 
         yield 'single quote concat single quote but with line break before' => [
-            <<<EOD
-                <?php \$ff = 'x' // some comment
+            <<<'EOD'
+                <?php $ff = 'x' // some comment
                 .'y';
                 EOD,
         ];
@@ -172,9 +172,9 @@ final class NoUselessConcatOperatorFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'linebreak before concat + comment' => [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                \$a = 'The first line of some block.'
+                $a = 'The first line of some block.'
                 .'The second line' // some comment about this line
                 .'3rd line'
                 ;

@@ -338,13 +338,13 @@ final class NoExtraBlankLinesFixerTest extends AbstractFixerTestCase
 
     public function testFixWithTrailingInlineBlock(): void
     {
-        $expected = <<<EOD
+        $expected = <<<'EOD'
 
             <?php
                 echo 'hello';
             ?>
 
-            \$a = 0;
+            $a = 0;
 
 
 
@@ -352,9 +352,9 @@ final class NoExtraBlankLinesFixerTest extends AbstractFixerTestCase
 
             <?php
 
-            \$a = 0;
+            $a = 0;
 
-            \$b = 1;
+            $b = 1;
 
             //a
             ?>

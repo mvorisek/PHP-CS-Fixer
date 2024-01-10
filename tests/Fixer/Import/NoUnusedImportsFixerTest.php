@@ -1546,11 +1546,11 @@ final class NoUnusedImportsFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'attribute' => [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                use Acme\\JsonSchemaValidationBundle\\Annotation\\JsonSchema;
-                use Sensio\\Bundle\\FrameworkExtraBundle\\Configuration\\IsGranted;
-                use Symfony\\Component\\Routing\\Annotation\\Route;
+                use Acme\JsonSchemaValidationBundle\Annotation\JsonSchema;
+                use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+                use Symfony\Component\Routing\Annotation\Route;
 
                 #[
                   Route('/basket/{uuid}/item', name: 'addBasketItem', requirements: ['uuid' => '%regex.uuid%'], methods: ['POST']),

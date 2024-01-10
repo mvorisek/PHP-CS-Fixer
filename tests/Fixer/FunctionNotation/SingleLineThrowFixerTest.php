@@ -303,7 +303,7 @@ final class SingleLineThrowFixerTest extends AbstractFixerTestCase
 
         yield [
             "<?php throw new Exception('Message.'. 1);",
-            <<<EOD
+            <<<'EOD'
                 <?php throw new Exception('Message.'.
                 1
                 );

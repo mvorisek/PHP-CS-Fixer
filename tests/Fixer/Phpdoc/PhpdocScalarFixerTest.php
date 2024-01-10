@@ -203,9 +203,9 @@ final class PhpdocScalarFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'do not modify strings' => [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                            \$string = '
+                            $string = '
                                 /**
                                  * @var boolean
                                  */

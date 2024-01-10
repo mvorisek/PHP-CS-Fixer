@@ -359,9 +359,9 @@ final class MethodArgumentSpaceFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'don\'t change HEREDOC and NOWDOC' => [
-            <<<EOD
+            <<<'EOD'
                 <?php if (1) {
-                    \$this->foo(
+                    $this->foo(
                         <<<EOTXTa
                     heredoc
                 EOTXTa

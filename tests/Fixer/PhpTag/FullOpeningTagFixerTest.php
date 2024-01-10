@@ -72,7 +72,7 @@ final class FullOpeningTagFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                 '<?
                 ';

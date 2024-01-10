@@ -66,7 +66,7 @@ final class SpacesInsideParenthesesFixerTest extends AbstractFixerTestCase
     {
         // default leaves new lines alone
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
 
                 class Foo
@@ -312,7 +312,7 @@ final class SpacesInsideParenthesesFixerTest extends AbstractFixerTestCase
     {
         // Leaves new lines alone
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
 
                 class Foo

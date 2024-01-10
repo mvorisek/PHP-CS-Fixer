@@ -987,7 +987,7 @@ final class SingleClassElementPerStatementFixerTest extends AbstractFixerTestCas
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
 
                 enum Foo: string {
@@ -999,7 +999,7 @@ final class SingleClassElementPerStatementFixerTest extends AbstractFixerTestCas
 
                 var_dump(Foo::A.Foo::B);
                 EOD,
-            <<<EOD
+            <<<'EOD'
                 <?php
 
                 enum Foo: string {

@@ -68,7 +68,7 @@ final class DescribeCommandTest extends TestCase
     public static function provideExecuteOutputCases(): iterable
     {
         yield 'rule is configurable, risky and deprecated' => [
-            <<<EOD
+            <<<'EOD'
                 Description of the `Foo/bar` rule.
 
                 DEPRECATED: use `Foo/baz` instead.
@@ -91,7 +91,7 @@ final class DescribeCommandTest extends TestCase
                    @@ -1,1 +1,1 @@
                    -<?php echo 'bad stuff and bad thing';
                    +<?php echo 'good stuff and bad thing';
-                EOD."\n   ".<<<EOD
+                EOD."\n   ".<<<'EOD'
 
                    ----------- end diff -----------
 
@@ -174,7 +174,7 @@ final class DescribeCommandTest extends TestCase
         ];
 
         yield 'rule with code samples' => [
-            <<<EOD
+            <<<'EOD'
                 Description of the `Foo/samples` rule.
 
                 Summary of the rule.
@@ -188,7 +188,7 @@ final class DescribeCommandTest extends TestCase
                    @@ -1,1 +1,1 @@
                    -<?php echo 'BEFORE';
                    +<?php echo 'AFTER';
-                EOD."\n   ".<<<EOD
+                EOD."\n   ".<<<'EOD'
 
                    ----------- end diff -----------
 
@@ -218,7 +218,7 @@ final class DescribeCommandTest extends TestCase
         ];
 
         yield 'rule with code samples (one with matching PHP version, one NOT)' => [
-            <<<EOD
+            <<<'EOD'
                 Description of the `Foo/samples` rule.
 
                 Summary of the rule.
@@ -283,7 +283,7 @@ final class DescribeCommandTest extends TestCase
                    ----------- end diff -----------
 
 
-                EOD.preg_quote(<<<EOD
+                EOD.preg_quote(<<<'EOD'
                 Fixer is part of the following rule sets:
                 * @PER with config: ['default' => 'at_least_single_space']
                 * @PER-CS with config: ['default' => 'at_least_single_space']
@@ -453,7 +453,7 @@ final class DescribeCommandTest extends TestCase
         ]);
 
         $expected =
-<<<EOD
+<<<'EOD'
     Description of the `Vendor/describe_fixture` rule.
 
     Fixture for describe command.

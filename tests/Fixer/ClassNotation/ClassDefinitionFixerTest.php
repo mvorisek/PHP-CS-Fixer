@@ -235,8 +235,8 @@ final class ClassDefinitionFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
-                <?php \$a = new #
+            <<<'EOD'
+                <?php $a = new #
                 class #
                 ( #
                 '1a', #
@@ -251,8 +251,8 @@ final class ClassDefinitionFixerTest extends AbstractFixerTestCase
                 }#
                 ;
                 EOD,
-            <<<EOD
-                <?php \$a = new#
+            <<<'EOD'
+                <?php $a = new#
                 class#
                 (#
                 '1a',#
@@ -269,8 +269,8 @@ final class ClassDefinitionFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
-                <?php \$a = new #
+            <<<'EOD'
+                <?php $a = new #
                 class #
                 ( #
                 '1a', #
@@ -283,8 +283,8 @@ final class ClassDefinitionFixerTest extends AbstractFixerTestCase
                 }#
                 ;
                 EOD,
-            <<<EOD
-                <?php \$a = new#
+            <<<'EOD'
+                <?php $a = new#
                 class#
                 (#
                 '1a',#

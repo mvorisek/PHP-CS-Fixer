@@ -167,32 +167,32 @@ final class NoWhitespaceBeforeCommaInArrayFixerTest extends AbstractFixerTestCas
         ];
 
         yield [
-            <<<EOD
-                <?php \$x = array(<<<'EOF'
-                <?php \$a = '\\foo\\bar\\\\';
+            <<<'EOD'
+                <?php $x = array(<<<'EOF'
+                <?php $a = '\foo\bar\\';
                 EOF
                                 , <<<'EOF'
-                <?php \$a = "\\foo\\bar\\\\";
+                <?php $a = "\foo\bar\\";
                 EOF
                                     );
                 EOD,
         ];
 
         yield [
-            <<<EOD
-                <?php \$x = array(<<<'EOF'
-                <?php \$a = '\\foo\\bar\\\\';
+            <<<'EOD'
+                <?php $x = array(<<<'EOF'
+                <?php $a = '\foo\bar\\';
                 EOF, <<<'EOF'
-                <?php \$a = "\\foo\\bar\\\\";
+                <?php $a = "\foo\bar\\";
                 EOF
                                     );
                 EOD,
-            <<<EOD
-                <?php \$x = array(<<<'EOF'
-                <?php \$a = '\\foo\\bar\\\\';
+            <<<'EOD'
+                <?php $x = array(<<<'EOF'
+                <?php $a = '\foo\bar\\';
                 EOF
                                 , <<<'EOF'
-                <?php \$a = "\\foo\\bar\\\\";
+                <?php $a = "\foo\bar\\";
                 EOF
                                     );
                 EOD,

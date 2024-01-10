@@ -150,9 +150,9 @@ final class ConcatSpaceFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                \$longString = '*'
+                                $longString = '*'
                                     .'*****'
                                     .'*****'
                                     .'*****'
@@ -161,9 +161,9 @@ final class ConcatSpaceFixerTest extends AbstractFixerTestCase
                                     // Other comment
                                     .'*****';
                 EOD,
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                \$longString = '*'
+                                $longString = '*'
                                     . '*****'
                                     .  '*****'
                                     .   '*****'

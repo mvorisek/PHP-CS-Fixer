@@ -102,7 +102,7 @@ final class NoTrailingWhitespaceFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                 <<<'EOT'
                 Il y eut un rire éclatant des écoliers qui décontenança le pauvre

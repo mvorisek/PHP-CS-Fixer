@@ -1808,16 +1808,16 @@ final class NoUnneededControlParenthesesFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'match' => [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                \$r = match (\$food) {
+                                $r = match ($food) {
                                     'apple' => 'An apple',
                                     'cake' => 'Some cake',
                                 };
                 EOD,
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                \$r = match ((\$food)) {
+                                $r = match (($food)) {
                                     'apple' => 'An apple',
                                     'cake' => 'Some cake',
                                 };

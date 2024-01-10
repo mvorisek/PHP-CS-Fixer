@@ -36,11 +36,11 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                use Foo\\Bar\\Thing;
+                                use Foo\Bar\Thing;
 
-                                echo 'Foo\\Bar\\Thing';
+                                echo 'Foo\Bar\Thing';
                 EOD,
             <<<'EOD'
                 <?php
@@ -54,9 +54,9 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
             <<<'EOD'
                 <?php
                                 use Foo\Bar;
-                EOD."\n            ".<<<EOD
+                EOD."\n            ".<<<'EOD'
 
-                                echo 'Foo\\Bar\\Thing';
+                                echo 'Foo\Bar\Thing';
                 EOD,
             <<<'EOD'
                 <?php
@@ -68,11 +68,11 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                                 namespace Foo;
-                                use Foo\\Bar;
-                                echo 'Foo\\Bar\\Baz';
+                                use Foo\Bar;
+                                echo 'Foo\Bar\Baz';
                 EOD,
             <<<'EOD'
                 <?php
@@ -83,11 +83,11 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                use Foo\\Bar\\Thing as Alias;
+                                use Foo\Bar\Thing as Alias;
 
-                                echo 'Foo\\Bar\\Thing';
+                                echo 'Foo\Bar\Thing';
                 EOD,
             <<<'EOD'
                 <?php
@@ -98,13 +98,13 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                use Foo\\Bar\\Dummy;
-                                use Foo\\Bar\\Thing as Alias;
+                                use Foo\Bar\Dummy;
+                                use Foo\Bar\Thing as Alias;
 
-                                echo 'Foo\\Bar\\Dummy';
-                                echo 'Foo\\Bar\\Thing';
+                                echo 'Foo\Bar\Dummy';
+                                echo 'Foo\Bar\Thing';
                 EOD,
             <<<'EOD'
                 <?php
@@ -117,7 +117,7 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                                 echo 'DateTime';
                 EOD,
@@ -128,7 +128,7 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                                 echo 'Thing';
                 EOD,
@@ -139,7 +139,7 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                                 class Foo {
                                     public function amazingFunction() {
@@ -158,13 +158,13 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                namespace A\\B;
+                                namespace A\B;
 
-                                use Foo\\Bar;
+                                use Foo\Bar;
 
-                                echo 'Foo\\Bar';
+                                echo 'Foo\Bar';
                 EOD,
             <<<'EOD'
                 <?php
@@ -177,30 +177,30 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
 
-                                namespace A\\B {
+                                namespace A\B {
 
                                     class D {
 
                                     }
                                 }
 
-                                namespace B\\B {
+                                namespace B\B {
                                     class D {
 
                                     }
                                 }
 
                                 namespace C {
-                                    use A\\B\\D;
-                                    var_dump('A\\B\\D');
+                                    use A\B\D;
+                                    var_dump('A\B\D');
                                 }
 
                                 namespace C1 {
-                                    use B\\B\\D;
-                                    var_dump('B\\B\\D');
+                                    use B\B\D;
+                                    var_dump('B\B\D');
                                 }
                 EOD,
             <<<'EOD'
@@ -250,10 +250,10 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                                 namespace Foo;
-                                var_dump('Foo\\Bar\\Baz');
+                                var_dump('Foo\Bar\Baz');
                 EOD,
             <<<'EOD'
                 <?php
@@ -263,10 +263,10 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                namespace Foo\\Bar;
-                                var_dump('Foo\\Bar\\Baz');
+                                namespace Foo\Bar;
+                                var_dump('Foo\Bar\Baz');
                 EOD,
             <<<'EOD'
                 <?php
@@ -276,14 +276,14 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                                use Foo\\Bar\\{ClassA, ClassB, ClassC as C};
-                                use function Foo\\Bar\\{fn_a, fn_b, fn_c};
-                                use const Foo\\Bar\\{ConstA, ConstB, ConstC};
+                                use Foo\Bar\{ClassA, ClassB, ClassC as C};
+                                use function Foo\Bar\{fn_a, fn_b, fn_c};
+                                use const Foo\Bar\{ConstA, ConstB, ConstC};
 
-                                echo 'Foo\\Bar\\ClassB';
-                                echo 'Foo\\Bar\\ClassC';
+                                echo 'Foo\Bar\ClassB';
+                                echo 'Foo\Bar\ClassC';
                 EOD,
             <<<'EOD'
                 <?php
@@ -294,24 +294,24 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
                                 echo ClassB::class;
                                 echo C::class;
                 EOD,
-            <<<EOD
+            <<<'EOD'
                 <?php
                                 namespace {
                                     var_dump('Foo');
                                 }
                                 namespace A {
-                                    use B\\C;
-                                    var_dump('B\\C');
+                                    use B\C;
+                                    var_dump('B\C');
                                 }
                                 namespace {
-                                    var_dump('Bar\\Baz');
+                                    var_dump('Bar\Baz');
                                 }
                                 namespace B {
-                                    use A\\C\\D;
-                                    var_dump('A\\C\\D');
+                                    use A\C\D;
+                                    var_dump('A\C\D');
                                 }
                                 namespace {
-                                    var_dump('Qux\\Quux');
+                                    var_dump('Qux\Quux');
                                 }
                 EOD,
             <<<'EOD'
@@ -343,7 +343,7 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
     public function testFixPrePHP80(): void
     {
         $this->doTest(
-            <<<EOD
+            <<<'EOD'
                 <?php echo 'DateTime'
                 # a
                  /* b */?>
@@ -364,10 +364,10 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
     public function testNotFixPHP8(): void
     {
         $this->doTest(
-            <<<EOD
+            <<<'EOD'
                 <?php
                             echo 'Thing';
-                            echo \$thing::class;
+                            echo $thing::class;
                 EOD,
             <<<'EOD'
                 <?php

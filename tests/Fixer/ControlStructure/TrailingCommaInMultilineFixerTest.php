@@ -139,9 +139,9 @@ final class TrailingCommaInMultilineFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
-                    \$x = array(
+                    $x = array(
                         'foo',
                         'bar',
                         array(
@@ -167,9 +167,9 @@ final class TrailingCommaInMultilineFixerTest extends AbstractFixerTestCase
                         ),
                     );
                 EOD,
-            <<<EOD
+            <<<'EOD'
                 <?php
-                    \$x = array(
+                    $x = array(
                         'foo',
                         'bar',
                         array(
@@ -332,7 +332,7 @@ final class TrailingCommaInMultilineFixerTest extends AbstractFixerTestCase
 
         // no array tests
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                     throw new BadMethodCallException(
                         sprintf(
@@ -344,7 +344,7 @@ final class TrailingCommaInMultilineFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                     throw new BadMethodCallException(sprintf(
                         'Method "%s" not implemented',
@@ -354,21 +354,21 @@ final class TrailingCommaInMultilineFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
 
-                    namespace FOS\\RestBundle\\Controller;
+                    namespace FOS\RestBundle\Controller;
 
                     class ExceptionController extends ContainerAware
                     {
-                        public function showAction(Request \$request, \$exception, DebugLoggerInterface \$logger = null, \$format = 'html')
+                        public function showAction(Request $request, $exception, DebugLoggerInterface $logger = null, $format = 'html')
                         {
-                            if (!\$exception instanceof DebugFlattenException && !\$exception instanceof HttpFlattenException) {
-                                throw new \\InvalidArgumentException(sprintf(
+                            if (!$exception instanceof DebugFlattenException && !$exception instanceof HttpFlattenException) {
+                                throw new \InvalidArgumentException(sprintf(
                                     'ExceptionController::showAction can only accept some exceptions (%s, %s), "%s" given',
-                                    'Symfony\\Component\\HttpKernel\\Exception\\FlattenException',
-                                    'Symfony\\Component\\Debug\\Exception\\FlattenException',
-                                    get_class(\$exception)
+                                    'Symfony\Component\HttpKernel\Exception\FlattenException',
+                                    'Symfony\Component\Debug\Exception\FlattenException',
+                                    get_class($exception)
                                 ));
                             }
                         }

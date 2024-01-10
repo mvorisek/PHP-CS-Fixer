@@ -81,7 +81,7 @@ final class IndentationTypeFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                         echo 'ECHO';
                 EOD,
@@ -439,7 +439,7 @@ final class IndentationTypeFixerTest extends AbstractFixerTestCase
             EOD];
 
         yield [
-            <<<EOD
+            <<<'EOD'
                 <?php
                 if (true) {
                   if (true) {
