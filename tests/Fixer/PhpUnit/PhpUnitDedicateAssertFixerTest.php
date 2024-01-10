@@ -426,11 +426,8 @@ $a#
         yield 'lot of spacing' => [
             self::generateTest('$this->assertCount(
                 1
-                ,
-                '.'
-                '.'
-                $a
-                '.'
+                ,'."\n                ".''."\n                ".'
+                $a'."\n                ".'
                 )
                 ;'),
             self::generateTest('$this->assertSame(

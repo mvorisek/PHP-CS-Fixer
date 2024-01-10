@@ -48,12 +48,10 @@ final class ClassKeywordRemoveFixerTest extends AbstractFixerTestCase
 
         yield [
             '<?php
-                use Foo\\Bar;
-            '."
+                use Foo\\Bar;'."\n            "."
                 echo 'Foo\\Bar\\Thing';",
             '<?php
-                use Foo\Bar;
-            '.'
+                use Foo\Bar;'."\n            ".'
                 echo Bar\Thing::class;',
         ];
 

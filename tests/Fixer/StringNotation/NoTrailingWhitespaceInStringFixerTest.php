@@ -102,8 +102,7 @@ $a = <<<EOD
   foo  '.'
 bar
   $a '.'
-$b
-    '.'
+$b'."\n    ".'
    baz  '.'
 EOD;',
         ];
@@ -121,8 +120,7 @@ EOD;',
 <?php
 $a = <<<\'EOD\'
   foo  '.'
-bar
-    '.'
+bar'."\n    ".'
    baz  '.'
 EOD;',
         ];
@@ -141,8 +139,7 @@ EOD;',
 <?php
     $a = <<<\'EOD\'
       foo  '.'
-    bar
-        '.'
+    bar'."\n        ".'
        baz  '.'
     EOD;
 ',

@@ -5531,8 +5531,7 @@ if ($foo) {
 
 //    if ($bar === \'bar\') {
 //        return [];
-//    }
-    '.'
+//    }'."\n    ".'
     $bar = \'bar\';
 } else {
     bar();
@@ -5545,8 +5544,7 @@ if ($foo) {
 if ($foo) {
     foo();
 
-//    bar();
-    '.'
+//    bar();'."\n    ".'
     $bar = \'bar\';
 } else {
     bar();
@@ -5558,8 +5556,7 @@ if ($foo) {
             '<?php
 if ($foo) {
     foo();
-//    bar();
-    '.'
+//    bar();'."\n    ".'
     $bar = \'bar\';
 } else {
     bar();
@@ -5570,8 +5567,7 @@ if ($foo) {
         yield [
             '<?php
 if ($foo) {
-    foo();
-    '.'
+    foo();'."\n    ".'
 //    bar();
     $bar = \'bar\';
 } else {
@@ -5583,8 +5579,7 @@ if ($foo) {
         yield [
             '<?php
 if ($foo) {
-    foo();
-    '.'
+    foo();'."\n    ".'
 //    bar();
 } else {
     bar();
@@ -5615,8 +5610,7 @@ function foo()
             '<?php
 function foo()
 {
-    $a = 1;
-    '.'
+    $a = 1;'."\n    ".'
 //    bar();
     // we will return sth
     return $a;
@@ -5625,8 +5619,7 @@ function foo()
             '<?php
 function foo()
 {
-    $a = 1;
-    '.'
+    $a = 1;'."\n    ".'
 //    bar();
 // we will return sth
     return $a;
@@ -5697,8 +5690,7 @@ if (true) {
 \t/*
 \t \$i += 3;
 
-\t // 1
-  "."
+\t // 1"."\n  "."
 \t   return foo(\$i);
 \t */
 }",
@@ -5709,8 +5701,7 @@ if (true) {
 /*
  $i += 3;
 
- // 1
-  '.'
+ // 1'."\n  ".'
    return foo($i);
  */
 }',

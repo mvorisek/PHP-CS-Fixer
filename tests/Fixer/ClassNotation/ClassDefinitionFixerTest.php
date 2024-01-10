@@ -371,8 +371,7 @@ A#
             '<?php
 interface Test extends
   /*a*/    /*b*/TestInterface1   , \A\B\C  ,  /* test */
-    TestInterface2   ,   // test
-    '.'
+    TestInterface2   ,   // test'."\n    ".'
 
 // Note: PSR does not have a rule for multiple extends
 TestInterface3, /**/     TestInterface4   ,
@@ -383,8 +382,7 @@ TestInterface3, /**/     TestInterface4   ,
 interface Test
 extends
   /*a*/    /*b*/TestInterface1   , \A\B\C  ,  /* test */
-    TestInterface2   ,   // test
-    '.'
+    TestInterface2   ,   // test'."\n    ".'
 
 // Note: PSR does not have a rule for multiple extends
 TestInterface3, /**/     TestInterface4   ,
@@ -1097,8 +1095,7 @@ extends  /*
                 '<?php
 class Test extends TestInterface8 implements      /*a*/      /*b*/
     TestInterface1,  /* test */
-    TestInterface2,   // test
-    '.'
+    TestInterface2,   // test'."\n    ".'
 
 // test
 TestInterface3, /**/
@@ -1112,8 +1109,7 @@ class Test
 extends
     TestInterface8
   implements      /*a*/      /*b*/TestInterface1   ,  /* test */
-    TestInterface2   ,   // test
-    '.'
+    TestInterface2   ,   // test'."\n    ".'
 
 // test
 TestInterface3, /**/     TestInterface4   ,

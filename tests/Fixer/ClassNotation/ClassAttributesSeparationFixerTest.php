@@ -725,8 +725,7 @@ abstract class MethodTest3
     abstract protected function method221();
 
 
-
-	'.'
+'."\n	".'
 
 
 

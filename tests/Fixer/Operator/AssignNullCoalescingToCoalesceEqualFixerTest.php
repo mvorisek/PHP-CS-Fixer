@@ -143,9 +143,7 @@ final class AssignNullCoalescingToCoalesceEqualFixerTest extends AbstractFixerTe
         yield 'simple, multi line' => [
             '<?php
             $a
-             ??=
-              '.'
-               '.'
+             ??='."\n              ".''."\n               ".'
                 1;',
             '<?php
             $a

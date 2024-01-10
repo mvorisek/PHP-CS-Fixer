@@ -1147,8 +1147,7 @@ do {
         yield [
             '<?php
 function foo() {
-yield $a; /* a *//* b */     /* c */       /* d *//* e *//* etc */
-   '.'
+yield $a; /* a *//* b */     /* c */       /* d *//* e *//* etc */'."\n   ".'
 yield $b;
 }',
             '<?php

@@ -42,14 +42,12 @@ final class DiffConsoleFormatterTest extends TestCase
     {
         yield [
             sprintf(
-                '<comment>   ---------- begin diff ----------</comment>
-   '.'
+                '<comment>   ---------- begin diff ----------</comment>'."\n   ".'
    <fg=cyan>%s</fg=cyan>
     no change
    <fg=red>%s</fg=red>
    <fg=green>%s</fg=green>
-   <fg=green>%s</fg=green>
-   '.'
+   <fg=green>%s</fg=green>'."\n   ".'
 <comment>   ----------- end diff -----------</comment>',
                 OutputFormatter::escape('@@ -12,51 +12,151 @@'),
                 OutputFormatter::escape('-/**\\'),
@@ -87,8 +85,7 @@ final class DiffConsoleFormatterTest extends TestCase
             sprintf('[start]%s%%s%s[end]', PHP_EOL, PHP_EOL),
             '
 @@ -12,51 +12,151 @@
- no change
- '.'
+ no change'."\n ".'
 -/**\
 +/*\
 +A

@@ -54,9 +54,7 @@ final class FunctionToConstantFixerTest extends AbstractFixerTestCase
 
         yield 'With multi line whitespace.' => [
             '<?php echo
-                PHP_VERSION
-                '.'
-                '.'
+                PHP_VERSION'."\n                ".''."\n                ".'
                 ;',
             '<?php echo
                 phpversion

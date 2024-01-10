@@ -61,8 +61,7 @@ final class NoWhitespaceInBlankLineFixerTest extends AbstractFixerTestCase
             '<?php
 
 $a = 1; ',
-            '<?php
-     '.'
+            '<?php'."\n     ".'
 $a = 1; ',
         ];
 
@@ -109,10 +108,7 @@ $t = true> 9;       '.'
 
     $b += 4;',
             '<?php
-    $b = 4;
-    '.'
-    '.'
-    '.'
+    $b = 4;'."\n    ".''."\n    ".''."\n    ".'
     $b += 4;',
         ];
 

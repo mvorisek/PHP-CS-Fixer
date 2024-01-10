@@ -90,8 +90,7 @@ $var2 = some_function(
     // space     '.'
     $var2a = $z[1](
         $var2a
-    );
-    '.'
+    );'."\n    ".'
     $var3 = function(  $a, $b  ) { };
 ',
             '<?php
@@ -106,8 +105,7 @@ $var2 = some_function(
     // space     '.'
     $var2a = $z[1](
         $var2a
-    );
-    '.'
+    );'."\n    ".'
     $var3 = function(  $a , $b  ) { };
 ',
             [

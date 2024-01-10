@@ -549,8 +549,7 @@ use function some\a\{fn_a, fn_b, fn_c,};
 
 use const some\a\{ConstA,ConstB,ConstC
 ,
-};
-  '.'
+};'."\n  ".'
 use const some\Z\{ConstX,ConstY,ConstZ,};
 ',
         ];
@@ -1048,11 +1047,9 @@ class Foo
                             return new ConstantNode($token->getValue());
 
                         case 7:
-                            return new ConstantNode($token->getValue());
-        '.'
+                            return new ConstantNode($token->getValue());'."\n        ".'
                         case 8:
-                            return 8;
-                        '.'
+                            return 8;'."\n                        ".'
                         default:
                             echo 1;
                     }',

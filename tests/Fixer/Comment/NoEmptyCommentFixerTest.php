@@ -62,8 +62,7 @@ echo 1;',
 
         yield [
             '<?php
-                echo 2;
-                    '.'
+                echo 2;'."\n                    ".'
 echo 1;',
             '<?php
                 echo 2;
@@ -81,22 +80,19 @@ echo 1;',
         ];
 
         yield [
-            '<?php
-                    ',
+            '<?php'."\n                    ",
             '<?php
                     //',
         ];
 
         yield [
-            '<?php
-                    ',
+            '<?php'."\n                    ",
             '<?php
                     #',
         ];
 
         yield [
-            '<?php
-                    ',
+            '<?php'."\n                    ",
             '<?php
                     /**/',
         ];
@@ -201,8 +197,7 @@ echo 1;',
         ];
 
         yield [
-            '<?php
-                    ',
+            '<?php'."\n                    ",
             '<?php
                     /*
                      *
@@ -210,8 +205,7 @@ echo 1;',
         ];
 
         yield [
-            '<?php
-                    ',
+            '<?php'."\n                    ",
             '<?php
                     /********
                      *
@@ -224,10 +218,8 @@ echo 1;',
         ];
 
         yield [
-            '<?php
-                    '.'
-                    /* a */
-                    ',
+            '<?php'."\n                    ".'
+                    /* a */'."\n                    ",
             '<?php
                     //
                     /* a */

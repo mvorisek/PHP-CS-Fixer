@@ -103,8 +103,7 @@ final class NoUselessElseFixerTest extends AbstractFixerTestCase
         yield [
             '<?php
                     if (true)
-                        echo 3;
-                    '.'
+                        echo 3;'."\n                    ".'
                     ?><?php
                 echo 4;',
             '<?php
@@ -149,8 +148,7 @@ else?><?php echo 5;',
                         } elseif($b) {
                             %s
                         }  '.'
-                            echo 662;
-                        '.'
+                            echo 662;'."\n                        ".'
                     }
                 }';
 
@@ -259,8 +257,7 @@ else?><?php echo 5;',
                     if ($a) {
                         %s
                     }  '.'
-                        echo 1;
-                    '.'
+                        echo 1;'."\n                    ".'
                 }
             }';
 
@@ -282,8 +279,7 @@ else?><?php echo 5;',
                 if ($a) {
                     GOTO jump;
                 }  '.'
-                    echo 1789;
-                '.'
+                    echo 1789;'."\n                ".'
 
                 jump:',
             '<?php
@@ -313,8 +309,7 @@ else?><?php echo 5;',
                         if ($y) {
                             return 1;
                         }  '.'
-                            return 2;
-                        '.'
+                            return 2;'."\n                        ".'
                     }'."  \n                        return 3;\n                    ",
             '<?php
                     if ($x) {

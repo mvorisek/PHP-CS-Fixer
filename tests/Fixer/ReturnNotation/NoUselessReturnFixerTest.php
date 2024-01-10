@@ -106,19 +106,15 @@ final class NoUselessReturnFixerTest extends AbstractFixerTestCase
                 if ($a)
                     return;
                 if ($a > 1) return;
-                echo $a;
-                '.'
+                echo $a;'."\n                ".'
             };
-            $c1();
-            '.'
-            '.'
+            $c1();'."\n            ".''."\n            ".'
         }
 
         private function test()
         {
             $d = function(){
-                echo 123;
-                '.'
+                echo 123;'."\n                ".'
             };
 
             $d();
@@ -162,8 +158,7 @@ final class NoUselessReturnFixerTest extends AbstractFixerTestCase
     function aT($a) {
         if ($a) {
             return;
-        }
-                   '.'
+        }'."\n                   ".'
     }',
             '<?php
     function aT($a) {
@@ -245,10 +240,8 @@ final class NoUselessReturnFixerTest extends AbstractFixerTestCase
         yield [
             '<?php
                 $a = function() {
-                       /**/
-                     '.'
-           /* a */   //
-                    '.'
+                       /**/'."\n                     ".'
+           /* a */   //'."\n                    ".'
                 };',
             '<?php
                 $a = function() {

@@ -71,11 +71,9 @@ final class YieldFromArrayToYieldsFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            '<?php function f() {
-                 '.'
+            '<?php function f() {'."\n                 ".'
                     yield [1, 2];
-                    yield [3, 4];
-                '.'
+                    yield [3, 4];'."\n                ".'
             }',
             '<?php function f() {
                 yield from [
@@ -86,11 +84,9 @@ final class YieldFromArrayToYieldsFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            '<?php function f() {
-                 '.'
+            '<?php function f() {'."\n                 ".'
                     yield array(1, 2);
-                    yield array(3, 4);
-                '.'
+                    yield array(3, 4);'."\n                ".'
             }',
             '<?php function f() {
                 yield from [
@@ -101,12 +97,10 @@ final class YieldFromArrayToYieldsFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            '<?php function f() {
-                 '.'
+            '<?php function f() {'."\n                 ".'
                     yield 1;
                     yield 2;
-                    yield 3;
-                '.'
+                    yield 3;'."\n                ".'
             }',
             '<?php function f() {
                 yield from [
@@ -118,15 +112,13 @@ final class YieldFromArrayToYieldsFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            '<?php function f() {
-                 '.'
+            '<?php function f() {'."\n                 ".'
                     // uno
                     yield 1;
                     // dos
                     yield 2;
                     // tres
-                    yield 3;
-                '.'
+                    yield 3;'."\n                ".'
             }',
             '<?php function f() {
                 yield from [
@@ -141,13 +133,11 @@ final class YieldFromArrayToYieldsFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            '<?php function f() {
-                 '.'
+            '<?php function f() {'."\n                 ".'
                     yield random_key() => true;
                     yield "foo" => foo(1, 2);
                     yield "bar" => function ($x, $y) { return max($x, $y); };
-                    yield "baz" => function () { yield [1, 2]; };
-                '.'
+                    yield "baz" => function () { yield [1, 2]; };'."\n                ".'
             }',
             '<?php function f() {
                 yield from [

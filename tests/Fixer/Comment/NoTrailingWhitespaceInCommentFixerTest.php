@@ -53,15 +53,12 @@ final class NoTrailingWhitespaceInCommentFixerTest extends AbstractFixerTestCase
             '<?php
         /*
                 //
-                //
-                '.'
-                //
+                //'."\n                ".'
                 //
                 //
-                '.'
+                //'."\n                ".'
                 //
-                //
-                '.'
+                //'."\n                ".'
                 //
         */'." \n",
         ];

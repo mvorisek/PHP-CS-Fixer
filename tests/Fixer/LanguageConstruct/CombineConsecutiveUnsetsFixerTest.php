@@ -81,15 +81,12 @@ final class CombineConsecutiveUnsetsFixerTest extends AbstractFixerTestCase
         yield [
             '<?php
                     unset($foo3, $bar, $test,$test1);
-                        /* c1 */
-                        '.'
-                '.'
+                        /* c1 */'."\n                        ".''."\n                ".'
                 // c2'."\n                ",
             '<?php
                     unset($foo3);
                         /* c1 */
-                        unset($bar);
-                '.'
+                        unset($bar);'."\n                ".'
                 // c2
                 unset($test,$test1);',
         ];

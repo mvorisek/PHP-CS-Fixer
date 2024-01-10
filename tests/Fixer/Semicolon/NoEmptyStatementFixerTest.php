@@ -125,8 +125,7 @@ final class NoEmptyStatementFixerTest extends AbstractFixerTestCase
 
         yield [
             '<?php
-                {
-                    '.'
+                {'."\n                    ".'
                 }
                 echo 1;',
             '<?php
@@ -271,8 +270,7 @@ final class NoEmptyStatementFixerTest extends AbstractFixerTestCase
         yield [
             '<?php
                 function foo($n)
-                {
-                    '.'
+                {'."\n                    ".'
                     $a = function(){};
                     $b = function() use ($a) {};
                     ++${"a"};
