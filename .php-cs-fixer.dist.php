@@ -48,9 +48,6 @@ return (new Config())
         // REMOVE BEFORE MERGE
         'no_trailing_whitespace_in_string' => false,
         'heredoc_to_nowdoc' => false,
-        'braces_position' => false,
-        'single_line_empty_body' => false,
-        'class_definition' => false,
     ])
     ->setFinder($finder)
 ;
