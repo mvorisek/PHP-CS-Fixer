@@ -44,6 +44,13 @@ return (new Config())
         'header_comment' => ['header' => $header],
         'modernize_strpos' => true, // needs PHP 8+ or polyfill
         'no_useless_concat_operator' => false, // TODO switch back on when the `src/Console/Application.php` no longer needs the concat
+
+        // REMOVE BEFORE MERGE
+        'no_trailing_whitespace_in_string' => false,
+        'heredoc_to_nowdoc' => false,
+        'braces_position' => false,
+        'single_line_empty_body' => false,
+        'class_definition' => false,
     ])
     ->setFinder($finder)
 ;
