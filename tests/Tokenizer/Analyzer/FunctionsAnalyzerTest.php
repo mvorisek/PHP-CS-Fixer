@@ -110,121 +110,149 @@ final class FunctionsAnalyzerTest extends TestCase
         ];
 
         yield [
-            '<?php
-                namespace A {
-                    use function A;
-                }
-                namespace B {
-                    use function D;
-                    A();
-                }',
+            <<<'EOD'
+                <?php
+                                namespace A {
+                                    use function A;
+                                }
+                                namespace B {
+                                    use function D;
+                                    A();
+                                }
+                EOD,
             [30],
         ];
 
         yield [
-            '<?php
-                function A(){}
-                A();',
+            <<<'EOD'
+                <?php
+                                function A(){}
+                                A();
+                EOD,
             [10],
         ];
 
         yield [
-            '<?php
-                function A(){}
-                a();',
+            <<<'EOD'
+                <?php
+                                function A(){}
+                                a();
+                EOD,
             [10],
         ];
 
         yield [
-            '<?php
-                namespace {
-                    function A(){}
-                    A();
-                }',
+            <<<'EOD'
+                <?php
+                                namespace {
+                                    function A(){}
+                                    A();
+                                }
+                EOD,
             [14],
         ];
 
         yield [
-            '<?php
-                namespace Z {
-                    function A(){}
-                    A();
-                }',
+            <<<'EOD'
+                <?php
+                                namespace Z {
+                                    function A(){}
+                                    A();
+                                }
+                EOD,
             [],
         ];
 
         yield [
-            '<?php
-            namespace Z;
+            <<<'EOD'
+                <?php
+                            namespace Z;
 
-            function A(){}
-            A();',
+                            function A(){}
+                            A();
+                EOD,
             [],
         ];
 
         yield 'function signature ref. return, calls itself' => [
-            '<?php
-                function & A(){}
-                A();',
+            <<<'EOD'
+                <?php
+                                function & A(){}
+                                A();
+                EOD,
             [12],
         ];
 
         yield [
-            '<?php
-                class Foo
-                {
-                    public function A(){}
-                }
-                A();',
+            <<<'EOD'
+                <?php
+                                class Foo
+                                {
+                                    public function A(){}
+                                }
+                                A();
+                EOD,
             [20],
         ];
 
         yield [
-            '<?php
-                namespace A {
-                    function A(){}
-                }
-                namespace B {
-                    A();
-                }',
+            <<<'EOD'
+                <?php
+                                namespace A {
+                                    function A(){}
+                                }
+                                namespace B {
+                                    A();
+                                }
+                EOD,
             [24],
         ];
 
         yield [
-            '<?php
-                use function X\a;
-                A();',
+            <<<'EOD'
+                <?php
+                                use function X\a;
+                                A();
+                EOD,
             [],
         ];
 
         yield [
-            '<?php
-                use A;
-                A();',
+            <<<'EOD'
+                <?php
+                                use A;
+                                A();
+                EOD,
             [7],
         ];
 
         yield [
-            '<?php
-                use const A;
-                A();',
+            <<<'EOD'
+                <?php
+                                use const A;
+                                A();
+                EOD,
             [9],
         ];
 
         yield [
-            '<?php
-                use function A;
-                str_repeat($a, $b);',
+            <<<'EOD'
+                <?php
+                                use function A;
+                                str_repeat($a, $b);
+                EOD,
             [9],
         ];
 
         yield [
-            '<?php
-                namespace {
-                    function A(){}
-                    A();
-                    $b = function(){};
-                }',
+            <<<'EOD'
+                <?php
+                                namespace {
+                                    function A(){}
+                                    A();
+                                    $b = function(){};
+                                }
+                EOD,
             [14],
         ];
 
@@ -234,14 +262,16 @@ final class FunctionsAnalyzerTest extends TestCase
         ];
 
         yield [
-            '<?php
-$z = new class(
-    new class(){ private function A(){} }
-){
-    public function A() {}
-};
+            <<<'EOD'
+                <?php
+                $z = new class(
+                    new class(){ private function A(){} }
+                ){
+                    public function A() {}
+                };
 
-A();',
+                A();
+                EOD,
             [46],
         ];
 
@@ -274,9 +304,11 @@ A();',
     public static function provideIsGlobalFunctionCallPre80Cases(): iterable
     {
         yield [
-            '<?php
-                    use function \  str_repeat;
-                    str_repeat($a, $b);',
+            <<<'EOD'
+                <?php
+                                    use function \  str_repeat;
+                                    str_repeat($a, $b);
+                EOD,
             [11],
         ];
     }
@@ -306,10 +338,12 @@ A();',
         ];
 
         yield [
-            '<?php
-#[\Attribute(\Attribute::TARGET_CLASS)]
-class Foo {}
-',
+            <<<'EOD'
+                <?php
+                #[\Attribute(\Attribute::TARGET_CLASS)]
+                class Foo {}
+
+                EOD,
             [],
         ];
 
@@ -319,9 +353,11 @@ class Foo {}
         ];
 
         yield [
-            '<?php
-                #[Foo(), Bar(), Baz()]
-                class Foo {}',
+            <<<'EOD'
+                <?php
+                                #[Foo(), Bar(), Baz()]
+                                class Foo {}
+                EOD,
             [],
         ];
     }
@@ -342,25 +378,27 @@ class Foo {}
     {
         yield 'first class callable cases' => [
             [],
-            '<?php
-strlen(...);
-\strlen(...);
-$closure(...);
-$invokableObject(...);
-$obj->method(...);
-$obj->$methodStr(...);
-($obj->property)(...);
-Foo::method(...);
-$classStr::$methodStr(...);
-self::{$complex . $expression}(...);
-\'strlen\'(...);
-[$obj, \'method\'](...);
-[Foo::class, \'method\'](...);
-$c = new class{};
-$b = new class(){};
-$a = new #[foo]
-class(){};
-',
+            <<<'EOD'
+                <?php
+                strlen(...);
+                \strlen(...);
+                $closure(...);
+                $invokableObject(...);
+                $obj->method(...);
+                $obj->$methodStr(...);
+                ($obj->property)(...);
+                Foo::method(...);
+                $classStr::$methodStr(...);
+                self::{$complex . $expression}(...);
+                'strlen'(...);
+                [$obj, 'method'](...);
+                [Foo::class, 'method'](...);
+                $c = new class{};
+                $b = new class(){};
+                $a = new #[foo]
+                class(){};
+
+                EOD,
         ];
 
         yield [
@@ -683,12 +721,14 @@ class(){};
      */
     public static function provideIsTheSameClassCallCases(): iterable
     {
-        $template = '<?php
-            class Foo {
-                public function methodOne() {
-                    $x = %sotherMethod(1, 2, 3);
-                }
-            }';
+        $template = <<<'EOD'
+            <?php
+                        class Foo {
+                            public function methodOne() {
+                                $x = %sotherMethod(1, 2, 3);
+                            }
+                        }
+            EOD;
 
         yield [
             false,
@@ -763,12 +803,14 @@ class(){};
     {
         yield [
             true,
-            '<?php
-                class Foo {
-                    public function methodOne() {
-                        $x = $this?->otherMethod(1, 2, 3);
-                    }
-                }',
+            <<<'EOD'
+                <?php
+                                class Foo {
+                                    public function methodOne() {
+                                        $x = $this?->otherMethod(1, 2, 3);
+                                    }
+                                }
+                EOD,
             24,
         ];
     }

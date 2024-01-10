@@ -44,22 +44,28 @@ final class NoMixedEchoPrintFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield [
-            '<?php
-                print "test";',
+            <<<'EOD'
+                <?php
+                                print "test";
+                EOD,
             null,
             ['use' => 'print'],
         ];
 
         yield [
-            '<?php
-                print ("test");',
+            <<<'EOD'
+                <?php
+                                print ("test");
+                EOD,
             null,
             ['use' => 'print'],
         ];
 
         yield [
-            '<?php
-                print("test");',
+            <<<'EOD'
+                <?php
+                                print("test");
+                EOD,
             null,
             ['use' => 'print'],
         ];
@@ -67,57 +73,83 @@ final class NoMixedEchoPrintFixerTest extends AbstractFixerTestCase
         // `echo` can take multiple parameters (although such usage is rare) while `print` can take only one argument,
         // @see https://php.net/manual/en/function.echo.php and @see https://php.net/manual/en/function.print.php
         yield [
-            '<?php
-                echo "This ", "string ", "was ", "made ", "with multiple parameters.";',
+            <<<'EOD'
+                <?php
+                                echo "This ", "string ", "was ", "made ", "with multiple parameters.";
+                EOD,
             null,
             ['use' => 'print'],
         ];
 
         yield [
-            '<?php
-                print "test";',
-            '<?php
-                echo "test";',
+            <<<'EOD'
+                <?php
+                                print "test";
+                EOD,
+            <<<'EOD'
+                <?php
+                                echo "test";
+                EOD,
             ['use' => 'print'],
         ];
 
         yield [
-            '<?php
-                print ("test");',
-            '<?php
-                echo ("test");',
+            <<<'EOD'
+                <?php
+                                print ("test");
+                EOD,
+            <<<'EOD'
+                <?php
+                                echo ("test");
+                EOD,
             ['use' => 'print'],
         ];
 
         yield [
-            '<?php
-                print("test");',
-            '<?php
-                echo("test");',
+            <<<'EOD'
+                <?php
+                                print("test");
+                EOD,
+            <<<'EOD'
+                <?php
+                                echo("test");
+                EOD,
             ['use' => 'print'],
         ];
 
         yield [
-            '<?php
-                print foo(1, 2);',
-            '<?php
-                echo foo(1, 2);',
+            <<<'EOD'
+                <?php
+                                print foo(1, 2);
+                EOD,
+            <<<'EOD'
+                <?php
+                                echo foo(1, 2);
+                EOD,
             ['use' => 'print'],
         ];
 
         yield [
-            '<?php
-                print ["foo", "bar", "baz"][$x];',
-            '<?php
-                echo ["foo", "bar", "baz"][$x];',
+            <<<'EOD'
+                <?php
+                                print ["foo", "bar", "baz"][$x];
+                EOD,
+            <<<'EOD'
+                <?php
+                                echo ["foo", "bar", "baz"][$x];
+                EOD,
             ['use' => 'print'],
         ];
 
         yield [
-            '<?php
-                print $foo ? "foo" : "bar";',
-            '<?php
-                echo $foo ? "foo" : "bar";',
+            <<<'EOD'
+                <?php
+                                print $foo ? "foo" : "bar";
+                EOD,
+            <<<'EOD'
+                <?php
+                                echo $foo ? "foo" : "bar";
+                EOD,
             ['use' => 'print'],
         ];
 
@@ -128,16 +160,20 @@ final class NoMixedEchoPrintFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            '<?php
-                if ($foo) {
-                    print "foo";
-                }
-                print "bar";',
-            '<?php
-                if ($foo) {
-                    echo "foo";
-                }
-                echo "bar";',
+            <<<'EOD'
+                <?php
+                                if ($foo) {
+                                    print "foo";
+                                }
+                                print "bar";
+                EOD,
+            <<<'EOD'
+                <?php
+                                if ($foo) {
+                                    echo "foo";
+                                }
+                                echo "bar";
+                EOD,
             ['use' => 'print'],
         ];
 
@@ -156,30 +192,38 @@ final class NoMixedEchoPrintFixerTest extends AbstractFixerTestCase
         }
 
         yield [
-            '<?php
-                echo "test";',
+            <<<'EOD'
+                <?php
+                                echo "test";
+                EOD,
             null,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                echo ("test");',
+            <<<'EOD'
+                <?php
+                                echo ("test");
+                EOD,
             null,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                echo("test");',
+            <<<'EOD'
+                <?php
+                                echo("test");
+                EOD,
             null,
             ['use' => 'echo'],
         ];
 
         // https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues/1502#issuecomment-156436229
         yield [
-            '<?php
-                ($some_var) ? print "true" : print "false";',
+            <<<'EOD'
+                <?php
+                                ($some_var) ? print "true" : print "false";
+                EOD,
             null,
             ['use' => 'echo'],
         ];
@@ -187,97 +231,131 @@ final class NoMixedEchoPrintFixerTest extends AbstractFixerTestCase
         // echo has no return value while print has a return value of 1 so it can be used in expressions.
         // https://www.w3schools.com/php/php_echo_print.asp
         yield [
-            '<?php
-                $ret = print "test";',
+            <<<'EOD'
+                <?php
+                                $ret = print "test";
+                EOD,
             null,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                @print foo();',
+            <<<'EOD'
+                <?php
+                                @print foo();
+                EOD,
             null,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                function testFunction() {
-                    return print("test");
-                }
+            <<<'EOD'
+                <?php
+                                function testFunction() {
+                                    return print("test");
+                                }
 
-                $a = testFunction();
-                $b += print($a);
-                $c=\'\';
-                $c .= $b.print($a);
-                $d = print($c) > 0 ? \'a\' : \'b\';
-                switch(print(\'a\')) {}
-                if (1 === print($a)) {}',
+                                $a = testFunction();
+                                $b += print($a);
+                                $c='';
+                                $c .= $b.print($a);
+                                $d = print($c) > 0 ? 'a' : 'b';
+                                switch(print('a')) {}
+                                if (1 === print($a)) {}
+                EOD,
             null,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                some_function_call();
-                echo "test";',
-            '<?php
-                some_function_call();
-                print "test";',
+            <<<'EOD'
+                <?php
+                                some_function_call();
+                                echo "test";
+                EOD,
+            <<<'EOD'
+                <?php
+                                some_function_call();
+                                print "test";
+                EOD,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                echo "test";',
-            '<?php
-                print "test";',
+            <<<'EOD'
+                <?php
+                                echo "test";
+                EOD,
+            <<<'EOD'
+                <?php
+                                print "test";
+                EOD,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                echo ("test");',
-            '<?php
-                print ("test");',
+            <<<'EOD'
+                <?php
+                                echo ("test");
+                EOD,
+            <<<'EOD'
+                <?php
+                                print ("test");
+                EOD,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                echo("test");',
-            '<?php
-                print("test");',
+            <<<'EOD'
+                <?php
+                                echo("test");
+                EOD,
+            <<<'EOD'
+                <?php
+                                print("test");
+                EOD,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                echo foo(1, 2);',
-            '<?php
-                print foo(1, 2);',
+            <<<'EOD'
+                <?php
+                                echo foo(1, 2);
+                EOD,
+            <<<'EOD'
+                <?php
+                                print foo(1, 2);
+                EOD,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                echo $foo ? "foo" : "bar";',
-            '<?php
-                print $foo ? "foo" : "bar";',
+            <<<'EOD'
+                <?php
+                                echo $foo ? "foo" : "bar";
+                EOD,
+            <<<'EOD'
+                <?php
+                                print $foo ? "foo" : "bar";
+                EOD,
             ['use' => 'echo'],
         ];
 
         yield [
-            '<?php
-                if ($foo) {
-                    echo "foo";
-                }
-                echo "bar";',
-            '<?php
-                if ($foo) {
-                    print "foo";
-                }
-                print "bar";',
+            <<<'EOD'
+                <?php
+                                if ($foo) {
+                                    echo "foo";
+                                }
+                                echo "bar";
+                EOD,
+            <<<'EOD'
+                <?php
+                                if ($foo) {
+                                    print "foo";
+                                }
+                                print "bar";
+                EOD,
             ['use' => 'echo'],
         ];
 
@@ -348,18 +426,22 @@ final class NoMixedEchoPrintFixerTest extends AbstractFixerTestCase
     {
         yield 'inside of HTML' => '<div><?php %1$s "foo" ?></div>';
 
-        yield 'foreach without curly brackets' => '<?php
-            %1$s "There will be foos: ";
-            foreach ($foos as $foo)
-                %1$s $foo;
-            %1$s "End of foos";';
+        yield 'foreach without curly brackets' => <<<'EOD'
+            <?php
+                        %1$s "There will be foos: ";
+                        foreach ($foos as $foo)
+                            %1$s $foo;
+                        %1$s "End of foos";
+            EOD;
 
-        yield 'if and else without curly brackets' => '<?php
-            if ($foo)
-                %1$s "One";
-            elseif ($bar)
-                %1$s "Two";
-            else
-                %1$s "Three";';
+        yield 'if and else without curly brackets' => <<<'EOD'
+            <?php
+                        if ($foo)
+                            %1$s "One";
+                        elseif ($bar)
+                            %1$s "Two";
+                        else
+                            %1$s "Three";
+            EOD;
     }
 }

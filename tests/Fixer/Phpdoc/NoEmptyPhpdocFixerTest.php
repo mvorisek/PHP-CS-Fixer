@@ -34,38 +34,50 @@ final class NoEmptyPhpdocFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield [
-            '<?php
-                    /** a */
-'."\n                    ".'
-'."\n                    ".'
-'."\n                    ".'
-'."\n                    ".'
-                    /**
-                     * test
-                     */
+            <<<'EOD'
+                <?php
+                                    /** a */
 
-                     /** *test* */',
-            '<?php
-                    /**  *//** a *//**  */
+                EOD."\n                    ".<<<'EOD'
 
-                    /**
-                    */
 
-                    /**
-                     *
-                     */
+                EOD."\n                    ".<<<'EOD'
 
-                    /** ***
-                     *
-                     ******/
 
-                    /**
-**/
-                    /**
-                     * test
-                     */
+                EOD."\n                    ".<<<'EOD'
 
-                     /** *test* */',
+
+                EOD."\n                    ".<<<'EOD'
+
+                                    /**
+                                     * test
+                                     */
+
+                                     /** *test* */
+                EOD,
+            <<<'EOD'
+                <?php
+                                    /**  *//** a *//**  */
+
+                                    /**
+                                    */
+
+                                    /**
+                                     *
+                                     */
+
+                                    /** ***
+                                     *
+                                     ******/
+
+                                    /**
+                **/
+                                    /**
+                                     * test
+                                     */
+
+                                     /** *test* */
+                EOD,
         ];
     }
 }

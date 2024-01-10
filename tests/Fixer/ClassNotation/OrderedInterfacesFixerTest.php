@@ -74,18 +74,22 @@ final class OrderedInterfacesFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'multiple in file' => [
-            '<?php
-                    class A1 implements A\B\C, Z\X\Y {}
-                    class B2 implements A\B, Z\X {}
-                    class C3 implements A, Z\X {}
-                    class D4 implements A\B, B\V, Z\X\V {}
-                    class E5 implements U\B, X\B, Y\V, Z\X\V {}',
-            '<?php
-                    class A1 implements Z\X\Y, A\B\C {}
-                    class B2 implements Z\X, A\B {}
-                    class C3 implements Z\X, A {}
-                    class D4 implements Z\X\V, B\V, A\B {}
-                    class E5 implements Z\X\V, Y\V, X\B, U\B {}',
+            <<<'EOD'
+                <?php
+                                    class A1 implements A\B\C, Z\X\Y {}
+                                    class B2 implements A\B, Z\X {}
+                                    class C3 implements A, Z\X {}
+                                    class D4 implements A\B, B\V, Z\X\V {}
+                                    class E5 implements U\B, X\B, Y\V, Z\X\V {}
+                EOD,
+            <<<'EOD'
+                <?php
+                                    class A1 implements Z\X\Y, A\B\C {}
+                                    class B2 implements Z\X, A\B {}
+                                    class C3 implements Z\X, A {}
+                                    class D4 implements Z\X\V, B\V, A\B {}
+                                    class E5 implements Z\X\V, Y\V, X\B, U\B {}
+                EOD,
         ];
 
         yield 'interface extends' => [
@@ -94,43 +98,51 @@ final class OrderedInterfacesFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'nested anonymous classes' => [
-            '<?php
-                    class T implements A, B, C
-                    {
-                        public function getAnonymousClassObject()
-                        {
-                            return new class() implements C, D, E
-                            {
-                                public function getNestedAnonymousClassObject()
-                                {
-                                    return new class() implements E, F, G {};
-                                }
-                            };
-                        }
-                    }',
-            '<?php
-                    class T implements C, A, B
-                    {
-                        public function getAnonymousClassObject()
-                        {
-                            return new class() implements E, C, D
-                            {
-                                public function getNestedAnonymousClassObject()
-                                {
-                                    return new class() implements F, G, E {};
-                                }
-                            };
-                        }
-                    }',
+            <<<'EOD'
+                <?php
+                                    class T implements A, B, C
+                                    {
+                                        public function getAnonymousClassObject()
+                                        {
+                                            return new class() implements C, D, E
+                                            {
+                                                public function getNestedAnonymousClassObject()
+                                                {
+                                                    return new class() implements E, F, G {};
+                                                }
+                                            };
+                                        }
+                                    }
+                EOD,
+            <<<'EOD'
+                <?php
+                                    class T implements C, A, B
+                                    {
+                                        public function getAnonymousClassObject()
+                                        {
+                                            return new class() implements E, C, D
+                                            {
+                                                public function getNestedAnonymousClassObject()
+                                                {
+                                                    return new class() implements F, G, E {};
+                                                }
+                                            };
+                                        }
+                                    }
+                EOD,
         ];
 
         yield 'single line after interfaces' => [
-            '<?php
-                class Foo implements B, C //, A
-                {}',
-            '<?php
-                class Foo implements C, B //, A
-                {}',
+            <<<'EOD'
+                <?php
+                                class Foo implements B, C //, A
+                                {}
+                EOD,
+            <<<'EOD'
+                <?php
+                                class Foo implements C, B //, A
+                                {}
+                EOD,
         ];
 
         yield 'descend single' => [
@@ -170,16 +182,20 @@ final class OrderedInterfacesFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'length normalized' => [
-            '<?php
-                    class A implements
-                         ABCDE,
-                         A\B\C\D
-                    { /* */ }',
-            '<?php
-                    class A implements
-                         A\B\C\D,
-                         ABCDE
-                    { /* */ }',
+            <<<'EOD'
+                <?php
+                                    class A implements
+                                         ABCDE,
+                                         A\B\C\D
+                                    { /* */ }
+                EOD,
+            <<<'EOD'
+                <?php
+                                    class A implements
+                                         A\B\C\D,
+                                         ABCDE
+                                    { /* */ }
+                EOD,
             [OrderedInterfacesFixer::OPTION_ORDER => OrderedInterfacesFixer::ORDER_LENGTH],
         ];
 
@@ -211,16 +227,20 @@ final class OrderedInterfacesFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'length, descend normalized' => [
-            '<?php
-                    class A implements
-                         A\B\C\D,
-                         ABCDE
-                    { /* */ }',
-            '<?php
-                    class A implements
-                         ABCDE,
-                         A\B\C\D
-                    { /* */ }',
+            <<<'EOD'
+                <?php
+                                    class A implements
+                                         A\B\C\D,
+                                         ABCDE
+                                    { /* */ }
+                EOD,
+            <<<'EOD'
+                <?php
+                                    class A implements
+                                         ABCDE,
+                                         A\B\C\D
+                                    { /* */ }
+                EOD,
             [
                 OrderedInterfacesFixer::OPTION_ORDER => OrderedInterfacesFixer::ORDER_LENGTH,
                 OrderedInterfacesFixer::OPTION_DIRECTION => OrderedInterfacesFixer::DIRECTION_DESCEND,
@@ -255,20 +275,24 @@ final class OrderedInterfacesFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'alpha normalized' => [
-            '<?php
-                    class A implements
-                         A\B\C\D,
-                         AAa\B\C\D,
-                         ABCDE,
-                         Aaa\B\C\D
-                    { /* */ }',
-            '<?php
-                    class A implements
-                         Aaa\B\C\D,
-                         AAa\B\C\D,
-                         ABCDE,
-                         A\B\C\D
-                    { /* */ }',
+            <<<'EOD'
+                <?php
+                                    class A implements
+                                         A\B\C\D,
+                                         AAa\B\C\D,
+                                         ABCDE,
+                                         Aaa\B\C\D
+                                    { /* */ }
+                EOD,
+            <<<'EOD'
+                <?php
+                                    class A implements
+                                         Aaa\B\C\D,
+                                         AAa\B\C\D,
+                                         ABCDE,
+                                         A\B\C\D
+                                    { /* */ }
+                EOD,
             [
                 OrderedInterfacesFixer::OPTION_ORDER => OrderedInterfacesFixer::ORDER_ALPHA,
                 'case_sensitive' => true,

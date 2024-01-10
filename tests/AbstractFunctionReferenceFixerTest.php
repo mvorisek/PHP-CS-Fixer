@@ -73,21 +73,25 @@ final class AbstractFunctionReferenceFixerTest extends TestCase
 
         yield 'test start offset' => [
             null,
-            '<?php
-                    foo();
-                    bar();',
+            <<<'EOD'
+                <?php
+                                    foo();
+                                    bar();
+                EOD,
             'foo',
             5,
         ];
 
         yield 'test returns only the first candidate' => [
             [2, 3, 4],
-            '<?php
-                    foo();
-                    foo();
-                    foo();
-                    foo();
-                    foo();',
+            <<<'EOD'
+                <?php
+                                    foo();
+                                    foo();
+                                    foo();
+                                    foo();
+                                    foo();
+                EOD,
             'foo',
         ];
 

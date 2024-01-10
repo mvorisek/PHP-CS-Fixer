@@ -40,44 +40,56 @@ final class PhpdocScalarFixerTest extends AbstractFixerTestCase
     public static function provideFixCases(): iterable
     {
         yield 'basic fix' => [
-            '<?php
-            /**
-             * @return int
-             */',
-            '<?php
-            /**
-             * @return integer
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @return int
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * @return integer
+                             */
+                EOD,
         ];
 
         yield 'property fix' => [
-            '<?php
-            /**
-             * @method int foo()
-             * @property int $foo
-             * @property callable $foo
-             * @property-read bool $bar
-             * @property-write float $baz
-             */',
-            '<?php
-            /**
-             * @method integer foo()
-             * @property integer $foo
-             * @property callback $foo
-             * @property-read boolean $bar
-             * @property-write double $baz
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @method int foo()
+                             * @property int $foo
+                             * @property callable $foo
+                             * @property-read bool $bar
+                             * @property-write float $baz
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * @method integer foo()
+                             * @property integer $foo
+                             * @property callback $foo
+                             * @property-read boolean $bar
+                             * @property-write double $baz
+                             */
+                EOD,
         ];
 
         yield 'do not modify variables' => [
-            '<?php
-            /**
-             * @param int $integer
-             */',
-            '<?php
-            /**
-             * @param integer $integer
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @param int $integer
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * @param integer $integer
+                             */
+                EOD,
         ];
 
         yield 'fix with tabs on one line' => [
@@ -86,161 +98,203 @@ final class PhpdocScalarFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'fix more things' => [
-            '<?php
-            /**
-             * Hello there mr integer!
-             *
-             * @param int|float $integer
-             * @param int|int[] $foo
-             * @param string|null $bar
-             *
-             * @return string|bool
-             */',
-            '<?php
-            /**
-             * Hello there mr integer!
-             *
-             * @param integer|real $integer
-             * @param int|integer[] $foo
-             * @param str|null $bar
-             *
-             * @return string|boolean
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * Hello there mr integer!
+                             *
+                             * @param int|float $integer
+                             * @param int|int[] $foo
+                             * @param string|null $bar
+                             *
+                             * @return string|bool
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * Hello there mr integer!
+                             *
+                             * @param integer|real $integer
+                             * @param int|integer[] $foo
+                             * @param str|null $bar
+                             *
+                             * @return string|boolean
+                             */
+                EOD,
         ];
 
         yield 'fix var' => [
-            '<?php
-            /**
-             * @var int Some integer value.
-             */',
-            '<?php
-            /**
-             * @var integer Some integer value.
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @var int Some integer value.
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * @var integer Some integer value.
+                             */
+                EOD,
         ];
 
         yield 'fix var with more stuff' => [
-            '<?php
-            /**
-             * @var bool|int|Double Booleans, integers and doubles.
-             */',
-            '<?php
-            /**
-             * @var boolean|integer|Double Booleans, integers and doubles.
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @var bool|int|Double Booleans, integers and doubles.
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * @var boolean|integer|Double Booleans, integers and doubles.
+                             */
+                EOD,
         ];
 
         yield 'fix type' => [
-            '<?php
-            /**
-             * @type float
-             */',
-            '<?php
-            /**
-             * @type real
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @type float
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * @type real
+                             */
+                EOD,
         ];
 
         yield 'do not fix' => [
-            '<?php
-            /**
-             * @var notaboolean
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @var notaboolean
+                             */
+                EOD,
         ];
 
         yield 'complex mix' => [
-            '<?php
-            /**
-             * @var notabooleanthistime|bool|integerr
-             */',
-            '<?php
-            /**
-             * @var notabooleanthistime|boolean|integerr
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @var notabooleanthistime|bool|integerr
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * @var notabooleanthistime|boolean|integerr
+                             */
+                EOD,
         ];
 
         yield 'do not modify complex tag' => [
-            '<?php
-            /**
-             * @Type("boolean")
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @Type("boolean")
+                             */
+                EOD,
         ];
 
         yield 'do not modify strings' => [
-            "<?php
-            \$string = '
-                /**
-                 * @var boolean
-                 */
-            ';",
+            <<<EOD
+                <?php
+                            \$string = '
+                                /**
+                                 * @var boolean
+                                 */
+                            ';
+                EOD,
         ];
 
         yield 'empty DocBlock' => [
-            '<?php
-            /**
-             *
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             *
+                             */
+                EOD,
         ];
 
         yield 'wrong cased Phpdoc tag is not altered' => [
-            '<?php
-            /**
-             * @Param boolean
-             *
-             * @Return int
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @Param boolean
+                             *
+                             * @Return int
+                             */
+                EOD,
         ];
 
         yield 'inline doc' => [
-            '<?php
-            /**
-             * Does stuff with stuffs.
-             *
-             * @param array $stuffs {
-             *     @type bool $foo
-             *     @type int $bar
-             * }
-             */',
-            '<?php
-            /**
-             * Does stuff with stuffs.
-             *
-             * @param array $stuffs {
-             *     @type boolean $foo
-             *     @type integer $bar
-             * }
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * Does stuff with stuffs.
+                             *
+                             * @param array $stuffs {
+                             *     @type bool $foo
+                             *     @type int $bar
+                             * }
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * Does stuff with stuffs.
+                             *
+                             * @param array $stuffs {
+                             *     @type boolean $foo
+                             *     @type integer $bar
+                             * }
+                             */
+                EOD,
         ];
 
         yield 'fix callback' => [
-            '<?php
-            /**
-             * @method int foo()
-             * @property int $foo
-             * @property callable $foo
-             * @property-read bool $bar
-             * @property-write float $baz
-             */',
-            '<?php
-            /**
-             * @method integer foo()
-             * @property integer $foo
-             * @property callback $foo
-             * @property-read boolean $bar
-             * @property-write double $baz
-             */',
+            <<<'EOD'
+                <?php
+                            /**
+                             * @method int foo()
+                             * @property int $foo
+                             * @property callable $foo
+                             * @property-read bool $bar
+                             * @property-write float $baz
+                             */
+                EOD,
+            <<<'EOD'
+                <?php
+                            /**
+                             * @method integer foo()
+                             * @property integer $foo
+                             * @property callback $foo
+                             * @property-read boolean $bar
+                             * @property-write double $baz
+                             */
+                EOD,
             ['types' => ['boolean', 'callback', 'double', 'integer', 'real', 'str']],
         ];
 
         yield 'fix Windows line endings' => [
-            str_replace("\n", "\r\n", '<?php
-            /**
-             * @return int
-             */'),
-            str_replace("\n", "\r\n", '<?php
-            /**
-             * @return integer
-             */'),
+            str_replace("\n", "\r\n", <<<'EOD'
+                <?php
+                            /**
+                             * @return int
+                             */
+                EOD),
+            str_replace("\n", "\r\n", <<<'EOD'
+                <?php
+                            /**
+                             * @return integer
+                             */
+                EOD),
         ];
     }
 }

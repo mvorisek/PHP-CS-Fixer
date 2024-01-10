@@ -111,12 +111,16 @@ final class NoBinaryStringFixerTest extends AbstractFixerTestCase
         ];
 
         yield [
-            '<?php
-                    echo "{$fruit}";
-                    echo " {$fruit}";',
-            '<?php
-                    echo b"{$fruit}";
-                    echo b" {$fruit}";',
+            <<<'EOD'
+                <?php
+                                    echo "{$fruit}";
+                                    echo " {$fruit}";
+                EOD,
+            <<<'EOD'
+                <?php
+                                    echo b"{$fruit}";
+                                    echo b" {$fruit}";
+                EOD,
         ];
 
         yield ['<?php echo Bar::foo();'];

@@ -61,15 +61,19 @@ final class NotOperatorWithSuccessorSpaceFixerTest extends AbstractFixerTestCase
         ];
 
         yield 'comment case' => [
-            '<?php
-                $a=#
-! #
-$b;',
-            '<?php
-                $a=#
-!
-#
-$b;',
+            <<<'EOD'
+                <?php
+                                $a=#
+                ! #
+                $b;
+                EOD,
+            <<<'EOD'
+                <?php
+                                $a=#
+                !
+                #
+                $b;
+                EOD,
         ];
     }
 }
