@@ -116,8 +116,8 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function __clone()
     {
-        foreach ($this as $key => $val) {
-            $this[$key] = clone $val;
+        foreach ($this->tokens as $key => $val) {
+            $this->tokens[$key] = clone $val;
         }
     }
 
@@ -1098,7 +1098,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
 
         $this->foundTokenKinds = [];
 
-        foreach ($this as $token) {
+        foreach ($this->tokens as $token) {
             $this->registerFoundToken($token);
         }
 
@@ -1111,7 +1111,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
     {
         $output = new \SplFixedArray(\count($this));
 
-        foreach ($this as $index => $token) {
+        foreach ($this->tokens as $index => $token) {
             $output[$index] = $token->toArray();
         }
 
