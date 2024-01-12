@@ -352,7 +352,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function offsetUnset($index): void
     {
-        if (isset($this[$index])) {
+        if (isset($this->tokens[$index])) {
             if (isset($this->blockStartCache[$index])) {
                 unset($this->blockEndCache[$this->blockStartCache[$index]], $this->blockStartCache[$index]);
             }
@@ -360,7 +360,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
                 unset($this->blockStartCache[$this->blockEndCache[$index]], $this->blockEndCache[$index]);
             }
 
-            $this->unregisterFoundToken($this[$index]);
+            $this->unregisterFoundToken($this->tokens[$index]);
 
             $this->changed = true;
             $this->namespaceDeclarations = null;
@@ -389,8 +389,8 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
      */
     public function offsetSet($index, $newval): void
     {
-        if (!isset($this[$index]) || !$this[$index]->equals($newval)) {
-            if (isset($this[$index])) {
+        if (!isset($this->tokens[$index]) || !$this->tokens[$index]->equals($newval)) {
+            if (isset($this->tokens[$index])) {
                 if (isset($this->blockStartCache[$index])) {
                     unset($this->blockEndCache[$this->blockStartCache[$index]], $this->blockStartCache[$index]);
                 }
@@ -398,7 +398,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
                     unset($this->blockStartCache[$this->blockEndCache[$index]], $this->blockEndCache[$index]);
                 }
 
-                $this->unregisterFoundToken($this[$index]);
+                $this->unregisterFoundToken($this->tokens[$index]);
             }
 
             $this->changed = true;
@@ -441,7 +441,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
         for ($count = $index; $index < $limit; ++$index) {
             if (!$this->isEmptyAt($index)) {
                 // use directly for speed, skip the register of token kinds found etc.
-                $this->tokens[$count++] = $this[$index];
+                $this->tokens[$count++] = $this->tokens[$index];
             }
         }
 
@@ -495,7 +495,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
             return $whitespace;
         };
 
-        if ($this[$index]->isWhitespace()) {
+        if ($this->tokens[$index]->isWhitespace()) {
             $whitespace = $removeLastCommentLine($this, $index - 1, $indexOffset, $whitespace);
 
             if ('' === $whitespace) {
@@ -567,7 +567,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
 
         if (\count($possibleKinds) > 0) {
             for ($i = $start; $i < $end; ++$i) {
-                $token = $this[$i];
+                $token = $this->tokens[$i];
                 if ($token->isGivenKind($possibleKinds)) {
                     $elements[$token->getId()][$i] = $token;
                 }
@@ -596,7 +596,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
         $code = '';
 
         for ($i = $start; $i <= $end; ++$i) {
-            $code .= $this[$i]->getContent();
+            $code .= $this->tokens[$i]->getContent();
         }
 
         return $code;
@@ -653,7 +653,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
                 return null;
             }
 
-            if (!$this[$index]->isWhitespace($whitespaces)) {
+            if (!$this->tokens[$index]->isWhitespace($whitespaces)) {
                 return $index;
             }
         }
@@ -708,7 +708,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
                 return null;
             }
 
-            if ($this[$index]->equalsAny($tokens, $caseSensitive)) {
+            if ($this->tokens[$index]->equalsAny($tokens, $caseSensitive)) {
                 return $index;
             }
         }
@@ -726,7 +726,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this->getTokenNotOfKind(
             $index,
             $direction,
-            fn (int $a): bool => $this[$a]->equalsAny($tokens),
+            fn (int $a): bool => $this->tokens[$a]->equalsAny($tokens),
         );
     }
 
@@ -742,7 +742,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
         return $this->getTokenNotOfKind(
             $index,
             $direction,
-            fn (int $index): bool => $this[$index]->isGivenKind($kinds),
+            fn (int $index): bool => $this->tokens[$index]->isGivenKind($kinds),
         );
     }
 
@@ -876,7 +876,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
             }
 
             // initialise the result array with the current index
-            $result = [$index => $this[$index]];
+            $result = [$index => $this->tokens[$index]];
 
             // advance cursor to the current position
             $currIdx = $index;
@@ -890,13 +890,13 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
                     return null;
                 }
 
-                if (!$this[$currIdx]->equals($token, self::isKeyCaseSensitive($caseSensitive, $key))) {
+                if (!$this->tokens[$currIdx]->equals($token, self::isKeyCaseSensitive($caseSensitive, $key))) {
                     // not a match, restart the outer loop
                     continue 2;
                 }
 
                 // append index to the result array
-                $result[$currIdx] = $this[$currIdx];
+                $result[$currIdx] = $this->tokens[$currIdx];
             }
 
             // do we have a complete match?
@@ -979,7 +979,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
             $sliceCount = \count($slice);
 
             for ($i = $previousSliceIndex - 1; $i >= $index; --$i) {
-                $this->tokens[$i + $itemsCount] = $this[$i];
+                $this->tokens[$i + $itemsCount] = $this->tokens[$i];
             }
 
             $previousSliceIndex = $index;
@@ -1007,7 +1007,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
 
     public function isEmptyAt(int $index): bool
     {
-        $token = $this[$index];
+        $token = $this->tokens[$index];
 
         return null === $token->getId() && '' === $token->getContent();
     }
@@ -1195,7 +1195,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
         }
 
         if (1 === $this->countTokenKind(T_INLINE_HTML)) {
-            return Preg::match('/^#!.+$/', $this[0]->getContent());
+            return Preg::match('/^#!.+$/', $this->tokens[0]->getContent());
         }
 
         return 1 === ($this->countTokenKind(T_OPEN_TAG) + $this->countTokenKind(T_OPEN_TAG_WITH_ECHO));
@@ -1208,7 +1208,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
     public function isPartialCodeMultiline(int $start, int $end): bool
     {
         for ($i = $start; $i <= $end; ++$i) {
-            if (str_contains($this[$i]->getContent(), "\n")) {
+            if (str_contains($this->tokens[$i]->getContent(), "\n")) {
                 return true;
             }
         }
@@ -1239,16 +1239,16 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
 
         $nextIndex = $this->getNonEmptySibling($index, 1);
 
-        if (null === $nextIndex || !$this[$nextIndex]->isWhitespace()) {
+        if (null === $nextIndex || !$this->tokens[$nextIndex]->isWhitespace()) {
             return;
         }
 
         $prevIndex = $this->getNonEmptySibling($index, -1);
 
-        if ($this[$prevIndex]->isWhitespace()) {
-            $this[$prevIndex] = new Token([T_WHITESPACE, $this[$prevIndex]->getContent().$this[$nextIndex]->getContent()]);
+        if ($this->tokens[$prevIndex]->isWhitespace()) {
+            $this[$prevIndex] = new Token([T_WHITESPACE, $this->tokens[$prevIndex]->getContent().$this->tokens[$nextIndex]->getContent()]);
         } elseif ($this->isEmptyAt($prevIndex + 1)) {
-            $this[$prevIndex + 1] = new Token([T_WHITESPACE, $this[$nextIndex]->getContent()]);
+            $this[$prevIndex + 1] = new Token([T_WHITESPACE, $this->tokens[$nextIndex]->getContent()]);
         }
 
         $this->clearAt($nextIndex);
@@ -1283,13 +1283,13 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
     private function removeWhitespaceSafely(int $index, int $direction, ?string $whitespaces = null): void
     {
         $whitespaceIndex = $this->getNonEmptySibling($index, $direction);
-        if (isset($this[$whitespaceIndex]) && $this[$whitespaceIndex]->isWhitespace()) {
+        if (isset($this->tokens[$whitespaceIndex]) && $this->tokens[$whitespaceIndex]->isWhitespace()) {
             $newContent = '';
-            $tokenToCheck = $this[$whitespaceIndex];
+            $tokenToCheck = $this->tokens[$whitespaceIndex];
 
             // if the token candidate to remove is preceded by single line comment we do not consider the new line after this comment as part of T_WHITESPACE
-            if (isset($this[$whitespaceIndex - 1]) && $this[$whitespaceIndex - 1]->isComment() && !str_starts_with($this[$whitespaceIndex - 1]->getContent(), '/*')) {
-                [, $newContent, $whitespacesToCheck] = Preg::split('/^(\R)/', $this[$whitespaceIndex]->getContent(), -1, PREG_SPLIT_DELIM_CAPTURE);
+            if (isset($this->tokens[$whitespaceIndex - 1]) && $this->tokens[$whitespaceIndex - 1]->isComment() && !str_starts_with($this->tokens[$whitespaceIndex - 1]->getContent(), '/*')) {
+                [, $newContent, $whitespacesToCheck] = Preg::split('/^(\R)/', $this->tokens[$whitespaceIndex]->getContent(), -1, PREG_SPLIT_DELIM_CAPTURE);
 
                 if ('' === $whitespacesToCheck) {
                     return;
@@ -1345,14 +1345,14 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
             $endIndex = 0;
         }
 
-        if (!$this[$startIndex]->equals($startEdge)) {
+        if (!$this->tokens[$startIndex]->equals($startEdge)) {
             throw new \InvalidArgumentException(sprintf('Invalid param $startIndex - not a proper block "%s".', $findEnd ? 'start' : 'end'));
         }
 
         $blockLevel = 0;
 
         for ($index = $startIndex; $index !== $endIndex; $index += $indexOffset) {
-            $token = $this[$index];
+            $token = $this->tokens[$index];
 
             if ($token->equals($startEdge)) {
                 ++$blockLevel;
@@ -1369,7 +1369,7 @@ class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
             }
         }
 
-        if (!$this[$index]->equals($endEdge)) {
+        if (!$this->tokens[$index]->equals($endEdge)) {
             throw new \UnexpectedValueException(sprintf('Missing block "%s".', $findEnd ? 'end' : 'start'));
         }
 
