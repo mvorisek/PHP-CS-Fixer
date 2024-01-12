@@ -27,13 +27,12 @@ use PhpCsFixer\Tokenizer\Analyzer\NamespacesAnalyzer;
  *
  * @author Dariusz Rumiński <dariusz.ruminski@gmail.com>
  *
- * @extends \SplFixedArray<Token>
- *
- * @method Token offsetGet($offset)
+ * @implements \ArrayAccess<int<0, max>, Token>
+ * @implements \IteratorAggregate<int<0, max>, Token>
  *
  * @final
  */
-class Tokens extends \SplFixedArray
+class Tokens implements \ArrayAccess, \Countable, \IteratorAggregate
 {
     public const BLOCK_TYPE_PARENTHESIS_BRACE = 1;
     public const BLOCK_TYPE_CURLY_BRACE = 2;
@@ -55,6 +54,13 @@ class Tokens extends \SplFixedArray
      * @var array<non-empty-string, self>
      */
     private static array $cache = [];
+
+    /**
+     * Internal collection of code tokens.
+     *
+     * @var list<null|Token>
+     */
+    private array $tokens;
 
     /**
      * Cache of block starts. Any change in collection will invalidate it.
@@ -99,6 +105,11 @@ class Tokens extends \SplFixedArray
      * @var null|list<NamespaceAnalysis>
      */
     private ?array $namespaceDeclarations = null;
+
+    public function __construct(int $size = 0)
+    {
+        $this->tokens = array_fill(0, $size, null);
+    }
 
     /**
      * Clone tokens collection.
@@ -276,16 +287,62 @@ class Tokens extends \SplFixedArray
      *
      * @param int $size
      */
-    public function setSize($size): bool
+    public function setSize($size): void
     {
         if ($this->getSize() !== $size) {
             $this->changed = true;
             $this->namespaceDeclarations = null;
 
-            return parent::setSize($size);
+            if (0 === $this->count()) {
+                $this->tokens = array_fill(0, $size, null);
+            } else {
+                for ($i = $this->count() - 1; $i >= $size; --$i) {
+                    unset($this->tokens[$i]);
+                }
+                for ($i = $this->count(); $i < $size; ++$i) {
+                    $this->tokens[$i] = null;
+                }
+            }
         }
+    }
 
-        return true;
+    public function count(): int
+    {
+        return \count($this->tokens);
+    }
+
+    public function getSize(): int
+    {
+        return \count($this->tokens);
+    }
+
+    /**
+     * @return list<Token>
+     */
+    public function toArray(): array
+    {
+        return $this->tokens;
+    }
+
+    public function getIterator(): \Traversable
+    {
+        // return new \ArrayIterator($this->tokens);
+        // yield from $this->tokens;
+
+        $i = 0;
+        while ($i < \count($this->tokens)) {
+            yield $this->tokens[$i++];
+        }
+    }
+
+    /**
+     * Check if collection item exists.
+     *
+     * @param int $index
+     */
+    public function offsetExists($index): bool
+    {
+        return isset($this->tokens[$index]);
     }
 
     /**
@@ -309,7 +366,17 @@ class Tokens extends \SplFixedArray
             $this->namespaceDeclarations = null;
         }
 
-        parent::offsetUnset($index);
+        unset($this->tokens[$index]);
+    }
+
+    /**
+     * Get collection item.
+     *
+     * @param int $index
+     */
+    public function offsetGet($index): ?Token
+    {
+        return $this->tokens[$index];
     }
 
     /**
@@ -340,7 +407,7 @@ class Tokens extends \SplFixedArray
             $this->registerFoundToken($newval);
         }
 
-        parent::offsetSet($index, $newval);
+        $this->tokens[$index] = $newval;
     }
 
     /**
@@ -374,7 +441,7 @@ class Tokens extends \SplFixedArray
         for ($count = $index; $index < $limit; ++$index) {
             if (!$this->isEmptyAt($index)) {
                 // use directly for speed, skip the register of token kinds found etc.
-                parent::offsetSet($count++, $this[$index]);
+                $this->tokens[$count++] = $this[$index];
             }
         }
 
@@ -912,7 +979,7 @@ class Tokens extends \SplFixedArray
             $sliceCount = \count($slice);
 
             for ($i = $previousSliceIndex - 1; $i >= $index; --$i) {
-                parent::offsetSet($i + $itemsCount, parent::offsetGet($i));
+                $this->tokens[$i + $itemsCount] = $this[$i];
             }
 
             $previousSliceIndex = $index;
@@ -925,7 +992,7 @@ class Tokens extends \SplFixedArray
 
                 $this->registerFoundToken($item);
 
-                parent::offsetSet($index + $itemsCount + $indexItem, $item);
+                $this->tokens[$index + $itemsCount + $indexItem] = $item;
             }
         }
     }
@@ -1035,10 +1102,6 @@ class Tokens extends \SplFixedArray
             $this->registerFoundToken($token);
         }
 
-        if (\PHP_VERSION_ID < 8_00_00) {
-            $this->rewind();
-        }
-
         $this->changeCodeHash(self::calculateCodeHash($code));
         $this->changed = true;
         $this->namespaceDeclarations = null;
@@ -1050,10 +1113,6 @@ class Tokens extends \SplFixedArray
 
         foreach ($this as $index => $token) {
             $output[$index] = $token->toArray();
-        }
-
-        if (\PHP_VERSION_ID < 8_00_00) {
-            $this->rewind();
         }
 
         return json_encode($output, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);

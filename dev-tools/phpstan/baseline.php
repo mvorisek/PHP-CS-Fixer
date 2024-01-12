@@ -267,27 +267,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/../../src/Tokenizer/Tokens.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$array \\(array\\<int, PhpCsFixer\\\\Tokenizer\\\\Token\\>\\) of method PhpCsFixer\\\\Tokenizer\\\\Tokens\\:\\:fromArray\\(\\) should be contravariant with parameter \\$array \\(array\\<int, mixed\\>\\) of method SplFixedArray\\<PhpCsFixer\\\\Tokenizer\\\\Token\\>\\:\\:fromArray\\(\\)$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Tokenizer/Tokens.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$index \\(int\\) of method PhpCsFixer\\\\Tokenizer\\\\Tokens\\:\\:offsetSet\\(\\) should be contravariant with parameter \\$index \\(int\\|null\\) of method SplFixedArray\\<PhpCsFixer\\\\Tokenizer\\\\Token\\>\\:\\:offsetSet\\(\\)$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Tokenizer/Tokens.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$index \\(int\\) of method PhpCsFixer\\\\Tokenizer\\\\Tokens\\:\\:offsetSet\\(\\) should be contravariant with parameter \\$offset \\(int\\|null\\) of method ArrayAccess\\<int,PhpCsFixer\\\\Tokenizer\\\\Token\\|null\\>\\:\\:offsetSet\\(\\)$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Tokenizer/Tokens.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#2 \\$newval \\(PhpCsFixer\\\\Tokenizer\\\\Token\\) of method PhpCsFixer\\\\Tokenizer\\\\Tokens\\:\\:offsetSet\\(\\) should be contravariant with parameter \\$value \\(PhpCsFixer\\\\Tokenizer\\\\Token\\|null\\) of method ArrayAccess\\<int,PhpCsFixer\\\\Tokenizer\\\\Token\\|null\\>\\:\\:offsetSet\\(\\)$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../src/Tokenizer/Tokens.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#2 \\$newval \\(PhpCsFixer\\\\Tokenizer\\\\Token\\) of method PhpCsFixer\\\\Tokenizer\\\\Tokens\\:\\:offsetSet\\(\\) should be contravariant with parameter \\$value \\(PhpCsFixer\\\\Tokenizer\\\\Token\\|null\\) of method SplFixedArray\\<PhpCsFixer\\\\Tokenizer\\\\Token\\>\\:\\:offsetSet\\(\\)$#',
+	'message' => '#^Parameter \\#1 \\$index \\(int\\) of method PhpCsFixer\\\\Tokenizer\\\\Tokens\\:\\:offsetSet\\(\\) should be contravariant with parameter \\$offset \\(int\\<0, max\\>\\|null\\) of method ArrayAccess\\<int\\<0, max\\>,PhpCsFixer\\\\Tokenizer\\\\Token\\>\\:\\:offsetSet\\(\\)$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../src/Tokenizer/Tokens.php',
 ];
@@ -302,12 +282,7 @@ $ignoreErrors[] = [
 	'path' => __DIR__ . '/../../src/Tokenizer/Tokens.php',
 ];
 $ignoreErrors[] = [
-	'message' => '#^Parameter \\#1 \\$index \\(int\\) of method PhpCsFixer\\\\Tests\\\\Test\\\\TokensWithObservedTransformers\\:\\:offsetSet\\(\\) should be contravariant with parameter \\$offset \\(int\\|null\\) of method ArrayAccess\\<int,PhpCsFixer\\\\Tokenizer\\\\Token\\|null\\>\\:\\:offsetSet\\(\\)$#',
-	'count' => 1,
-	'path' => __DIR__ . '/../../tests/Test/TokensWithObservedTransformers.php',
-];
-$ignoreErrors[] = [
-	'message' => '#^Parameter \\#2 \\$newval \\(PhpCsFixer\\\\Tokenizer\\\\Token\\) of method PhpCsFixer\\\\Tests\\\\Test\\\\TokensWithObservedTransformers\\:\\:offsetSet\\(\\) should be contravariant with parameter \\$value \\(PhpCsFixer\\\\Tokenizer\\\\Token\\|null\\) of method ArrayAccess\\<int,PhpCsFixer\\\\Tokenizer\\\\Token\\|null\\>\\:\\:offsetSet\\(\\)$#',
+	'message' => '#^Parameter \\#1 \\$index \\(int\\) of method PhpCsFixer\\\\Tests\\\\Test\\\\TokensWithObservedTransformers\\:\\:offsetSet\\(\\) should be contravariant with parameter \\$offset \\(int\\<0, max\\>\\|null\\) of method ArrayAccess\\<int\\<0, max\\>,PhpCsFixer\\\\Tokenizer\\\\Token\\>\\:\\:offsetSet\\(\\)$#',
 	'count' => 1,
 	'path' => __DIR__ . '/../../tests/Test/TokensWithObservedTransformers.php',
 ];

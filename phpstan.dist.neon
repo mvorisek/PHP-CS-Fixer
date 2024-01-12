@@ -15,7 +15,6 @@ parameters:
     treatPhpDocTypesAsCertain: false
     ignoreErrors:
         - '/^Class [a-zA-Z\\]+ extends @final class PhpCsFixer\\(ConfigurationException\\InvalidConfigurationException|ConfigurationException\\InvalidFixerConfigurationException|Tokenizer\\Tokens|Console\\Command\\FixCommand)\.$/'
-        - '/^\$this\(PhpCsFixer\\Tokenizer\\Tokens\) does not accept PhpCsFixer\\Tokenizer\\Token\|null\.$/'
 
         # PHPUnit data providers return type were not maintained originally, this exception should shrink over time (eg with help of custom, re-usable type)
         -

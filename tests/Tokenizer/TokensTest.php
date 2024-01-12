@@ -954,6 +954,29 @@ final class TokensTest extends TestCase
         yield [new Token([T_WHITESPACE, ' ']), false];
     }
 
+    public function testNestedIteration(): void
+    {
+        $a = new Token('a');
+        $b = new Token('b');
+
+        $tokens = new Tokens(2);
+        $tokens[0] = $a;
+        $tokens[1] = $b;
+
+        $res = [];
+        foreach ($tokens as $k1 => $t1) {
+            $res[] = $k1;
+            $res[] = $t1;
+            $res[] = '-';
+            foreach ($tokens as $k2 => $t2) {
+                $res[] = $k2;
+                $res[] = $t2;
+            }
+        }
+
+        self::assertSame([0, $a, '-', 0, $a, 1, $b, 1, $b, '-', 0, $a, 1, $b], $res);
+    }
+
     public function testClone(): void
     {
         $code = '<?php echo 1;';
